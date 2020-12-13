@@ -2,6 +2,10 @@ const express = require('express'),
 	app = express(),
 	port = 3000
 
+app.get('/', (req, res) => {
+	res.send('Hello world!')
+})
+
 app.get('/catalog/:id/section/:part', (req, res) => {
 	let info = 'catalog: ' + req.params.id + ' ' + 'part: ' + req.params.part;
 	res.send(info)
