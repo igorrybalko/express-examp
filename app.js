@@ -1,33 +1,16 @@
 const express = require('express'),
-	app = express(),
+	morgan = require('morgan')
+
+const app = express(),
 	port = 3000
 
-app.get('/', (req, res) => {
-	res.send('Hello world!')
-})
+app.use(morgan('dev'))
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
 
-app.get('/catalog/:id/section/:part', (req, res) => {
-	let info = 'catalog: ' + req.params.id + ' ' + 'part: ' + req.params.part;
-	res.send(info)
-})
- 
-app.post('/', (req, res) => {
-	res.send('POST method...')
-})
-
-app.delete('/', (req, res) => {
-	res.send('DELETE method...')
-})
-
-app.route('/user').get((req, res) => {
-	res.send('get user...')
-}).post((req, res) => {
-	res.send('create user...')
-}).put((req, res) => {
-	res.send('update user...')
-}).delete((req, res) => {
-	res.send('delete user...')
-})
+app.use('/', require('./routes'))
+app.use('/catalog', require('./routes/catalog'))
+app.use('/user', require('./routes/user'))
 
 app.listen(port, () => {
 	console.log('server started on http://localhost:' + port)
