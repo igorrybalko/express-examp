@@ -1,5 +1,6 @@
 const express = require('express'),
-	morgan = require('morgan')
+	morgan = require('morgan'),
+	path = require('path')
 
 const app = express(),
 	port = 3001
@@ -7,6 +8,7 @@ const app = express(),
 app.use(morgan('dev'))
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
+app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', require('./routes'))
 app.use('/catalog', require('./routes/catalog'))
