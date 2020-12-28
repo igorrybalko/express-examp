@@ -1,0 +1,17 @@
+html, body{
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.header{
+    margin-bottom: 30px;
+}
+
+.footer{
+    padding: 15px 0;
+}
