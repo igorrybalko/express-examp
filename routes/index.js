@@ -2,8 +2,13 @@ const express = require('express'),
     router = express.Router()
 
 router.get('/', (req, res) => {
-    console.log(req.query);
-    res.send('search: ' + req.query.search)
+
+    res.render('pages/index', {title: 'Home page'})
+})
+
+router.get('/about', (req, res) => {
+
+    res.render('pages/about', {title: 'About page', showNews: false})
 })
 
 router.post('/', (req, res, next) => {

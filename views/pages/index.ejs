@@ -1,0 +1,38 @@
+<% layout('layouts/main') -%>
+<%
+let text = `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ultrices metus fermentum leo
+                            aliquam rhoncus quis sed orci. Curabitur id ex ornare, maximus turpis in, tempus nisi. Nulla
+                            eget massa mattis, tristique velit quis, volutpat libero. Vivamus enim risus, tincidunt non
+                            tincidunt eget, pulvinar quis erat. Integer nec cursus justo. Vivamus gravida cursus odio id
+                            luctus.</p>
+                        <p>Etiam malesuada dolor eget turpis pretium, non egestas mauris tempus. Suspendisse eget
+                            ullamcorper libero, vitae molestie lectus. Nullam laoreet erat justo, at rutrum justo
+                            volutpat et. In efficitur fermentum magna, at consectetur nulla ultricies at. Sed blandit
+                            vel felis sed maximus. Donec ultrices purus id metus tempus, sed congue felis lobortis.</p>`
+
+%>
+<div class="container">
+    <h1><%= title %></h1>
+    <div class="row">
+        <div class="col-lg-12">
+            <%- text %>
+        </div>
+    </div>
+    <div class="row">
+        <h3>Last news</h3>
+        <div class="col-lg-6">
+            <p>Suspendisse potenti. Pellentesque habitant morbi tristique senectus et netus et malesuada
+                fames ac turpis egestas. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
+                posuere cubilia curae; Morbi mollis enim sed urna porta volutpat. Sed suscipit, libero vitae
+                feugiat semper, nibh augue laoreet sem, sit amet ultricies ipsum velit et erat. Duis dapibus
+                arcu ac justo lacinia consectetur.</p>
+        </div>
+        <div class="col-lg-6">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas neque erat, fermentum a
+                nibh ut, ultrices placerat lectus. Fusce fringilla vestibulum tincidunt. Nullam sed
+                sollicitudin ex. Nunc euismod, urna nec aliquet molestie, magna risus vestibulum augue, ac
+                aliquet libero purus id elit. Pellentesque habitant morbi tristique senectus et netus et
+                malesuada fames ac turpis egestas.</p>
+        </div>
+    </div>
+</div>
