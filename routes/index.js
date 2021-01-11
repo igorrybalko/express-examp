@@ -1,14 +1,23 @@
 const express = require('express'),
-    router = express.Router()
+	router = express.Router()
+	
+const conf = require('../config')
 
 router.get('/', (req, res) => {
 
-    res.render('pages/index', {title: 'Home page'})
+    res.render('pages/index', {
+		title: 'Home page',
+		siteName: conf.siteName
+	})
 })
 
 router.get('/about', (req, res) => {
 
-    res.render('pages/about', {title: 'About page', showNews: false})
+    res.render('pages/about', {
+		title: 'About page', 
+		showNews: false,
+		siteName: conf.siteName
+	})
 })
 
 router.post('/', (req, res, next) => {

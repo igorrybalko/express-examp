@@ -1,16 +1,18 @@
+require('dotenv').config()
+
 const express = require('express'),
 	morgan = require('morgan'),
 	path = require('path')
 
 const app = express(),
-	port = 3001
+	port = process.env.PORT || 3001
 
 app.engine('ejs', require('ejs-mate'))
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
-app.use(morgan('dev'))
+app.use(morgan(process.env.LOG_LEVEL))
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 app.use(express.static(path.join(__dirname, 'public')))
