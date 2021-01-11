@@ -22,5 +22,5 @@ app.use('/catalog', require('./routes/catalog'))
 app.use('/user', require('./routes/user'))
 
 app.listen(port, () => {
-	console.log('server started on http://localhost:' + port)
+	console.log('server started on http://' + process.env.DOMAIN + ':' + port)
 })
