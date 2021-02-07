@@ -2,7 +2,8 @@ require('dotenv').config()
 
 const express = require('express'),
 	morgan = require('morgan'),
-	path = require('path')
+	path = require('path'),
+	mongoSanitize = require('express-mongo-sanitize')
 
 const app = express(),
 	port = process.env.PORT || 3001
@@ -16,6 +17,7 @@ app.use(morgan(process.env.LOG_LEVEL))
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(mongoSanitize())
 
 app.use('/', require('./routes'))
 app.use('/catalog', require('./routes/catalog'))
