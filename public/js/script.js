@@ -24,6 +24,9 @@ if(form){
                 })
                 .then((data) => {
                     alert(data.message)
+                })
+                .catch((err) => {
+                    alert('error')
                 });
         }
     });
@@ -41,6 +44,9 @@ Array.from(document.getElementsByClassName('del')).forEach(el => {
             .then((data) => {
                 this.parentNode.parentNode.remove();
                 alert(data.message);
+            })
+            .catch((err) => {
+                alert('error')
             });
 
     });

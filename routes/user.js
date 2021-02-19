@@ -5,8 +5,7 @@ const express = require('express'),
 const conf = require('../config'),
 	{ Connection } = require('../ext/Connection.js')
 
-const collection = 'users',
-	fields = ['firstName', 'lastName', 'email', 'phone']
+const collection = 'users'
 
 Connection.connectToMongo()
 
@@ -57,31 +56,19 @@ router.route('/:id').get(async (req, res) => {
 	})
 }).post((req, res) => {
 
-	let data = {}
-
-	fields.forEach(el => {
-		data[el] = req.body[el]
-	})
-
-	Connection.db.collection(collection)
-		.insertOne(data, (err, result) => {
-			if(err){
-				throw err
-			}
-			res.redirect('/user')
+	Connection.db.collection(collection).insertOne(req.body, (err, result) => {
+		if(err){
+			throw err
+		}
+		res.redirect('/user')
 	})
 	
 }).put((req, res) => {
 
 	const id = req.params.id
-	let data = {}
-
-	fields.forEach(el => {
-		data[el] = req.body[el]
-	})
 
 	Connection.db.collection(collection)
-		.findOneAndReplace({_id: ObjectId(id)}, data, (err, result) => {
+		.findOneAndReplace({_id: ObjectId(id)}, req.body, (err, result) => {
 			if(err){
 				throw err
 			}
