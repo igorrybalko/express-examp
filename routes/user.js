@@ -1,20 +1,15 @@
 const express = require('express'),
-	router = express.Router(),
-	{ ObjectId } = require('mongodb')
+	router = express.Router()
 
 const conf = require('../config'),
-	{ Connection } = require('../ext/Connection.js')
-
-const collection = 'users'
-
-Connection.connectToMongo()
+	User = require('../models/user')
 
 router.route('/').get( async (req, res) => {
 
 	let content = []
 
 	try {
-		content = await Connection.db.collection(collection).find({}).toArray()
+		content = await User.find({})
 	} catch (err) {
 		throw err
 	}
@@ -38,16 +33,18 @@ router.route('/:id').get(async (req, res) => {
 		_id: id
 	}
 
-	if(req.params.id !== 'create'){
+	if(id !== 'create'){
 
 		try {
 	
-			content = await Connection.db.collection(collection).findOne({_id: ObjectId(id)})
+			content = await User.findById(id).exec()
 			
 		} catch (err) {
 			throw err
 		}
 	}
+
+	console.log(User.getNameInUpperCase())
 
 	res.render('pages/user', {
 		title: 'Users',
@@ -56,7 +53,9 @@ router.route('/:id').get(async (req, res) => {
 	})
 }).post((req, res) => {
 
-	Connection.db.collection(collection).insertOne(req.body, (err, result) => {
+	let user = new User(req.body)
+
+	user.save((err) => {
 		if(err){
 			throw err
 		}
@@ -65,22 +64,16 @@ router.route('/:id').get(async (req, res) => {
 	
 }).put((req, res) => {
 
-	const id = req.params.id
-
-	Connection.db.collection(collection)
-		.findOneAndReplace({_id: ObjectId(id)}, req.body, (err, result) => {
-			if(err){
-				throw err
-			}
-			res.json({message: 'updated'})
+	User.findByIdAndUpdate(req.params.id, req.body, (err, result) => {
+		if(err){
+			throw err
+		}
+		res.json({message: 'updated'})
 	})
 	
 }).delete((req, res) => {
 
-	const id = req.params.id
-
-	Connection.db.collection(collection)
-		.deleteOne({_id: ObjectId(id)}, (err, result) => {
+	User.findByIdAndRemove(req.params.id, (err, result) => {
 			if(err){
 				throw err
 			}
