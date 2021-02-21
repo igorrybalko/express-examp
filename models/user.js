@@ -37,7 +37,7 @@ const schema = new db.Schema({
 
 schema.methods.getNameInUpperCase = function(){
     let name = this.firstName + ' ' + this.lastName
-    return name.toLocaleUpperCase()
+    return name.toUpperCase()
 }
 
 module.exports = db.model('User', schema)

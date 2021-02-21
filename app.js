@@ -23,6 +23,10 @@ app.use('/', require('./routes'))
 app.use('/catalog', require('./routes/catalog'))
 app.use('/user', require('./routes/user'))
 
+app.use(function (err, req, res, next) {
+	res.status(500).send('Something broke!')
+})
+
 app.listen(port, () => {
 	console.log('server started on http://' + process.env.DOMAIN + ':' + port)
 })
