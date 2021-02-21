@@ -8,7 +8,6 @@ if(form){
             let data = {};
 
             Array.from(this.getElementsByTagName('input')).forEach(el => {
-                console.log(el.value)
                 data[el.name] = el.value;
             });
 
@@ -19,15 +18,15 @@ if(form){
                     'Content-Type': 'application/json;charset=utf-8'
                 },
             })
-                .then((response) => {
-                    return response.json();
-                })
-                .then((data) => {
-                    alert(data.message)
-                })
-                .catch((err) => {
-                    alert('error')
-                });
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                alert(data.message)
+            })
+            .catch((err) => {
+                alert('error')
+            });
         }
     });
 }
@@ -38,16 +37,16 @@ Array.from(document.getElementsByClassName('del')).forEach(el => {
         fetch('/user/' + this.dataset.id, {
             method: 'DELETE', 
         })
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                this.parentNode.parentNode.remove();
-                alert(data.message);
-            })
-            .catch((err) => {
-                alert('error')
-            });
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            this.parentNode.parentNode.remove();
+            alert(data.message);
+        })
+        .catch((err) => {
+            alert('error')
+        });
 
     });
 });
