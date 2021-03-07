@@ -2,16 +2,16 @@ const express = require('express'),
 	router = express.Router()
 
 const conf = require('../config'),
-	User = require('../models/user')
+	User = require('../models/User')
 
-router.route('/').get( async (req, res) => {
+router.route('/').get( async (req, res, next) => {
 
 	let content = []
 
 	try {
 		content = await User.find({})
 	} catch (err) {
-		throw err
+		return next(err)
 	}
 
 	res.render('pages/users', {
@@ -21,7 +21,7 @@ router.route('/').get( async (req, res) => {
 	})
 })
 
-router.route('/:id').get(async (req, res) => {
+router.route('/:id').get(async (req, res, next) => {
 
 	const id = req.params.id
 
@@ -33,21 +33,20 @@ router.route('/:id').get(async (req, res) => {
 		_id: id
 	}
 
-	if(id !== 'create'){
+	if(req.params.id !== 'create'){
 
 		try {
 	
 			content = await User.findById(id).exec()
 
-			// let nameUpper = await content.getNameInUpperCase()
-			// console.log(nameUpper)
+			// let userUpper = await content.getNameInUpperCase()
+			// console.log(userUpper)
 			
 		} catch (err) {
-			throw err
+			return next(err)
 		}
 	}
 
-	
 	res.render('pages/user', {
 		title: 'Users',
 		siteName: conf.siteName,
@@ -57,7 +56,7 @@ router.route('/:id').get(async (req, res) => {
 
 	let user = new User(req.body)
 
-	user.save((err) => {
+	user.save((err, result) => {
 		if(err){
 			return next(err)
 		}
@@ -66,9 +65,9 @@ router.route('/:id').get(async (req, res) => {
 	
 }).put((req, res) => {
 
-	User.findByIdAndUpdate(req.params.id, req.body, { runValidators: true }, (err, result) => {
+	User.findByIdAndUpdate(req.params.id, req.body, {runValidators: true}, (err, result) => {
 		if(err){
-			return res.status(400).json({message: 'error data'})
+			return res.status(400).json({message: 'error'})
 		}
 		res.json({message: 'updated'})
 	})
@@ -76,10 +75,10 @@ router.route('/:id').get(async (req, res) => {
 }).delete((req, res) => {
 
 	User.findByIdAndRemove(req.params.id, (err, result) => {
-			if(err){
-				return res.status(400).json({message: 'error data'})
-			}
-			res.json({message: 'deleted'})
+		if(err){
+			return res.status(400).json({message: 'error'})
+		}
+		res.json({message: 'deleted'})
 	})
 })
 

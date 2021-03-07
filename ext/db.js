@@ -1,10 +1,10 @@
-const db = require('mongoose')
+const db = require('mongoose');
+db.connect(process.env.DB_CONNECT + process.env.DB_NAME, 
+{
+    useNewUrlParser: true, 
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true
+});
 
-db.set('useNewUrlParser', true)
-db.set('useUnifiedTopology', true)
-db.set('useFindAndModify', false)
-db.set('useCreateIndex', true)
-
-
-db.connect(process.env.DB_CONNECT + process.env.DB_NAME)
-module.exports = db
+module.exports = db;

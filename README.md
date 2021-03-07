@@ -23,6 +23,7 @@ $ npm i
 - step-5 / Шаблонизаторы
 - step-6 / Файлы конфигурации
 - step-7 / Использование MongoDB
+- step-8 / Использование Mongoose
 
 # Ссылки
 [Node.js](https://nodejs.org/en/) - программная платформа  
