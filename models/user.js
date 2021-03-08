@@ -19,14 +19,14 @@ const schema = new db.Schema({
         type: String,
         required: true,
         maxlength: 255,
-        minlength: 2,
+        minlength: 4,
         trim: true
     },
     phone: {
         type: String,
         required: true,
-        maxlength: 255,
-        minlength: 2,
+        maxlength: 20,
+        minlength: 4,
         trim: true
     },
     create: {
