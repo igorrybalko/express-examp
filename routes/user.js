@@ -2,7 +2,8 @@ const express = require('express'),
 	router = express.Router()
 
 const conf = require('../config'),
-	User = require('../models/User')
+	User = require('../models/User'),
+	{ userValidation } = require('../validations/user')
 
 router.route('/').get( async (req, res, next) => {
 
@@ -54,6 +55,9 @@ router.route('/:id').get(async (req, res, next) => {
 	})
 }).post((req, res, next) => {
 
+	const {error} = userValidation(req.body)
+	if (error) return next({type: 'JOI', error})
+
 	let user = new User(req.body)
 
 	user.save((err, result) => {
@@ -64,6 +68,12 @@ router.route('/:id').get(async (req, res, next) => {
 	})
 	
 }).put((req, res) => {
+
+	const {error} = userValidation(req.body)
+
+	if (error){
+		return res.status(400).json({message: error.details[0].message})
+	} 
 
 	User.findByIdAndUpdate(req.params.id, req.body, {runValidators: true}, (err, result) => {
 		if(err){

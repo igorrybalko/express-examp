@@ -6,7 +6,8 @@ const express = require('express'),
 	mongoSanitize = require('express-mongo-sanitize')
 
 const app = express(),
-	port = process.env.PORT || 3001
+	port = process.env.PORT || 3001,
+	{siteName} = require('./config')
 
 app.engine('ejs', require('ejs-mate'))
 
@@ -24,7 +25,21 @@ app.use('/catalog', require('./routes/catalog'))
 app.use('/user', require('./routes/user'))
 
 app.use(function (err, req, res, next) {
-	res.status(500).send('Something broke!')
+
+	let message = 'Something broke!',
+		status = 500;
+
+	if(err.type == 'JOI'){
+		message = err.error.details[0].message
+		status = 400;
+	}
+	
+	res.status(status).render('pages/error', {
+		message, 
+		title: 'Error',
+		siteName,
+		status
+	})
 })
 
 app.listen(port, () => {

@@ -5,7 +5,7 @@ const schema = new db.Schema({
         type: String,
         required: true,
         maxlength: 255,
-        minlength: 2,
+        minlength: 3,
         trim: true
     },
     lastName: {
